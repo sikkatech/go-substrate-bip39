@@ -3,7 +3,6 @@ package substratebip39
 import (
 	"crypto/sha512"
 	"errors"
-	"fmt"
 	"math/big"
 	"strings"
 
@@ -36,8 +35,6 @@ func SeedFromMnemonic(mnemonic string, password string) ([64]byte, error) {
 	if len(entropy) < 16 || len(entropy) > 32 || len(entropy)%4 != 0 {
 		return [64]byte{}, errors.New("invalid entropy")
 	}
-
-	fmt.Println([]byte("mnemonic" + password))
 
 	bz := pbkdf2.Key(entropy, []byte("mnemonic"+password), 2048, 64, sha512.New)
 	var bzArr [64]byte
