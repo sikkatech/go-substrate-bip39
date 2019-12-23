@@ -4,4 +4,4 @@ Go implementation of the substrate-bip39 protocol used in Parity Substrate to ge
 
 The existing rust implementation is [here.](https://github.com/paritytech/substrate-bip39)
 
-**NOTE: Substate-BIP39 is a non-standard standard BIP39 implementation.**
+**NOTE: Substate-BIP39 is a non-standard BIP39 implementation.**
