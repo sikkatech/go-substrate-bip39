@@ -3,10 +3,8 @@ package substratebip39
 import (
 	"encoding/hex"
 	"testing"
-	"reflect"
 
 	"github.com/stretchr/testify/require"
-	schnorrkel "github.com/ChainSafe/go-schnorrkel"
 )
 
 func TestSubstrateBip39(t *testing.T) {
@@ -145,14 +143,9 @@ func TestSubstrateBip39(t *testing.T) {
 		require.Nil(t, err)
 		require.Equal(t, tc.hexSeed, hex.EncodeToString(seed[:]))
 
-		require.Nil(t, err)
-		expectedSecretBz, err := hex.DecodeString(tc.hexSeed[0:64])
-		require.Nil(t, err)
-		var expectedSecret [32]byte
-		copy(expectedSecret[:], expectedSecretBz[:])
-		expectedMiniSecret, err := schnorrkel.NewMiniSecretKeyFromRaw(expectedSecret)
-		require.Nil(t, err)
 		miniSecret, err := MiniSecretFromMnemonic(tc.mnemonic, "Substrate")
-		require.True(t, reflect.DeepEqual(expectedMiniSecret, miniSecret))
+		miniSecretBytes := miniSecret.Encode()
+		require.Nil(t, err)
+		require.Equal(t, tc.hexSeed[:64], hex.EncodeToString(miniSecretBytes[:]))
 	}
 }
